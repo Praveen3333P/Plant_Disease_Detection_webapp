@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload and Predict</title>
+    <style>
+      body {
+        background-image: url('https://wallpaperaccess.com/full/159402.jpg');
+        background-size: cover;
+      }
+      #upload-button {
+        margin-top: 50px;
+        font-size: 20px;
+        padding: 10px 20px;
+        background-color: #f2a115;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #predict-button {
+        margin-top: 20px;
+        font-size: 20px;
+        padding: 10px 20px;
+        background-color: #f2a115;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #prediction {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Upload and Predict</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <br><br>
+      <button id="upload-button" type="submit">Upload</button>
+    </form>
+    {% if image_path %}
+      <img src="{{ image_path }}" width="500px">
+      <br>
+      <form action="/predict" method="POST">
+        <input type="hidden" name="image_path" value="{{ image_path }}">
+        <button id="predict-button" type="submit">Predict</button>
+      </form>
+    {% endif %}
+    {% if prediction is not none %}
+      <div id="prediction">Prediction: {{ prediction }}</div>
+    {% endif %}
+  </body>
+</html>
